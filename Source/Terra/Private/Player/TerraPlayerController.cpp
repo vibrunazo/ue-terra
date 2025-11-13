@@ -5,6 +5,7 @@
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Characters/TerraCharacter.h"
 
 ATerraPlayerController::ATerraPlayerController()
 {
@@ -52,16 +53,33 @@ void ATerraPlayerController::TriggeredMove(const FInputActionValue& InputActionV
 
 void ATerraPlayerController::TriggeredAbility1(const FInputActionValue& InputActionValue)
 {
+	if (ATerraCharacter* TerraCharacter = Cast<ATerraCharacter>(GetPawn()))
+	{
+		TerraCharacter->UseAbility(1);
+	}
 }
 
 void ATerraPlayerController::TriggeredAbility2(const FInputActionValue& InputActionValue)
 {
+	if (ATerraCharacter* TerraCharacter = Cast<ATerraCharacter>(GetPawn()))
+	{
+		TerraCharacter->UseAbility(2);
+	}
+	
 }
 
 void ATerraPlayerController::TriggeredAbility3(const FInputActionValue& InputActionValue)
 {
+	if (ATerraCharacter* TerraCharacter = Cast<ATerraCharacter>(GetPawn()))
+	{
+		TerraCharacter->UseAbility(3);
+	}
 }
 
 void ATerraPlayerController::TriggeredAbility4(const FInputActionValue& InputActionValue)
 {
+	if (ATerraCharacter* TerraCharacter = Cast<ATerraCharacter>(GetPawn()))
+	{
+		TerraCharacter->UseAbility(4);
+	}
 }
