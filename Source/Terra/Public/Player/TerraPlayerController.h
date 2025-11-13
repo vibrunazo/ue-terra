@@ -45,12 +45,24 @@ public:
 	// Input Action Ability 4
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	UInputAction* Ability4Action;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Cursor")
+	FVector CursorLocation;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Rotation")
+	bool bRotateTowardsTarget = true;
 	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	virtual void Tick(float DeltaSeconds) override;
+	
 	// Called to bind functionality to input
 	virtual void SetupInputComponent() override;
+
+	void CacheCursorLocation();
+	void RotateToTarget();
 
 	void TriggeredMove(const FInputActionValue& InputActionValue);
 	void TriggeredAbility1(const FInputActionValue& InputActionValue);

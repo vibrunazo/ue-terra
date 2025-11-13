@@ -6,14 +6,46 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Characters/TerraCharacter.h"
+#include "Kismet/KismetMathLibrary.h"
 
 ATerraPlayerController::ATerraPlayerController()
 {
+	bRotateTowardsTarget = true;
 }
 
 void ATerraPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
+	bShowMouseCursor = true;
+}
+
+void ATerraPlayerController::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+	CacheCursorLocation();
+	RotateToTarget();
+}
+
+void ATerraPlayerController::CacheCursorLocation()
+{
+	FHitResult HitResult;
+	GetHitResultUnderCursor(ECC_Visibility, false, HitResult);
+	CursorLocation = HitResult.ImpactPoint;
+}
+
+void ATerraPlayerController::RotateToTarget()
+{
+	if (!bRotateTowardsTarget)
+	{
+		return;
+	}
+
+	if (APawn* ControlledPawn = GetPawn())
+	{
+		const FVector PawnLocation = ControlledPawn->GetActorLocation();
+		const FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(PawnLocation, CursorLocation);
+		ControlledPawn->SetActorRotation(FRotator(0.f, LookAtRotation.Yaw, 0.f));
+	}
 }
 
 void ATerraPlayerController::SetupInputComponent()
