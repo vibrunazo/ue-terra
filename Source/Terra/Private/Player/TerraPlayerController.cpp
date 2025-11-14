@@ -10,7 +10,8 @@
 
 ATerraPlayerController::ATerraPlayerController()
 {
-	bRotateTowardsTarget = true;
+	bRotatePawnToTarget = true;
+	bRotateControlToTarget = true;
 }
 
 void ATerraPlayerController::BeginPlay()
@@ -23,7 +24,8 @@ void ATerraPlayerController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 	CacheCursorLocation();
-	RotateToTarget();
+	RotatePawnToTarget();
+	RotateControlToTarget();
 }
 
 void ATerraPlayerController::CacheCursorLocation()
@@ -33,9 +35,9 @@ void ATerraPlayerController::CacheCursorLocation()
 	CursorLocation = HitResult.ImpactPoint;
 }
 
-void ATerraPlayerController::RotateToTarget()
+void ATerraPlayerController::RotatePawnToTarget()
 {
-	if (!bRotateTowardsTarget)
+	if (!bRotatePawnToTarget)
 	{
 		return;
 	}
@@ -48,6 +50,21 @@ void ATerraPlayerController::RotateToTarget()
 	}
 }
 
+void ATerraPlayerController::RotateControlToTarget()
+{
+	if (!bRotateControlToTarget)
+	{
+		return;
+	}
+	
+	if (APawn* ControlledPawn = GetPawn())
+	{
+		const FVector PawnLocation = ControlledPawn->GetActorLocation();
+		const FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(PawnLocation, CursorLocation);
+		SetControlRotation(FRotator(0.f, LookAtRotation.Yaw, 0.f));
+	}
+
+}
 void ATerraPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();

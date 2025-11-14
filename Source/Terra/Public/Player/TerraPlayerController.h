@@ -50,7 +50,10 @@ public:
 	FVector CursorLocation;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Rotation")
-	bool bRotateTowardsTarget = true;
+	bool bRotatePawnToTarget = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Rotation")
+	bool bRotateControlToTarget = true;
 	
 protected:
 	// Called when the game starts or when spawned
@@ -62,7 +65,8 @@ protected:
 	virtual void SetupInputComponent() override;
 
 	void CacheCursorLocation();
-	void RotateToTarget();
+	void RotatePawnToTarget();
+	void RotateControlToTarget();
 
 	void TriggeredMove(const FInputActionValue& InputActionValue);
 	void TriggeredAbility1(const FInputActionValue& InputActionValue);
