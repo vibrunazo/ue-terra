@@ -26,6 +26,7 @@ void ATerraPlayerController::Tick(float DeltaSeconds)
 	CacheCursorLocation();
 	RotatePawnToTarget();
 	RotateControlToTarget();
+	SetCharacterTargetToCursor();
 }
 
 void ATerraPlayerController::CacheCursorLocation()
@@ -65,6 +66,20 @@ void ATerraPlayerController::RotateControlToTarget()
 	}
 
 }
+
+void ATerraPlayerController::SetCharacterTargetToCursor()
+{
+	if (!bShouldSetTargetToCursor)
+	{
+		return;
+	}
+	
+	if (ATerraCharacter* TerraCharacter = Cast<ATerraCharacter>(GetPawn()))
+	{
+		TerraCharacter->TargetLocation = CursorLocation;
+	}
+}
+
 void ATerraPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();

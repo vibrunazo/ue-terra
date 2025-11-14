@@ -24,7 +24,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 	
 	virtual void PossessedBy(AController* NewController) override;
 	virtual void OnRep_PlayerState() override;
@@ -35,10 +35,19 @@ public:
 	
 	// Use Ability
 	void UseAbility(int32 AbilityIndex);
+	
+	// World location the character is looking at if bShouldLookAtTarget is true
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Rotation")
+	FVector TargetLocation;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Rotation")
+	bool bShouldLookAtTarget = true;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	void LookAtTargetLocation();
 
 	void GiveCoreAbilities();
 

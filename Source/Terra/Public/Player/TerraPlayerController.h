@@ -53,7 +53,11 @@ public:
 	bool bRotatePawnToTarget = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Rotation")
-	bool bRotateControlToTarget = true;
+	bool bRotateControlToTarget = false;
+	
+	// Whether to set character target to cursor location
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Rotation")
+	bool bShouldSetTargetToCursor = true;
 	
 protected:
 	// Called when the game starts or when spawned
@@ -67,6 +71,7 @@ protected:
 	void CacheCursorLocation();
 	void RotatePawnToTarget();
 	void RotateControlToTarget();
+	void SetCharacterTargetToCursor();
 
 	void TriggeredMove(const FInputActionValue& InputActionValue);
 	void TriggeredAbility1(const FInputActionValue& InputActionValue);

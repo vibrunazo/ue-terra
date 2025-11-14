@@ -8,6 +8,7 @@
 #include "AbilitySystem/TerraAttributeSet.h"
 #include "AbilitySystem/TerraAbility.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/KismetMathLibrary.h"
 
 // Sets default values
 ATerraCharacter::ATerraCharacter()
@@ -54,7 +55,26 @@ void ATerraCharacter::GiveCoreAbilities()
 void ATerraCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	LookAtTargetLocation();
+}
 
+void ATerraCharacter::LookAtTargetLocation()
+{
+	if (bShouldLookAtTarget)
+	{
+		// if current movement speed is zero, return
+		if (GetCharacterMovement()->Velocity.Size() <= 0.1f)
+		{
+			return;
+		}
+		
+		if (AController* PlayerController = GetController())
+		{
+			const FVector Location = GetActorLocation();
+			const FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(Location, TargetLocation);
+			PlayerController->SetControlRotation(FRotator(0.f, LookAtRotation.Yaw, 0.f));
+		}
+	}
 }
 
 // Called to bind functionality to input
