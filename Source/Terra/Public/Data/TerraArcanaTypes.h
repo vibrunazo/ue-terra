@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
+#include "TerraDeveloperSettings.h"
 #include "Engine/DataAsset.h"
 #include "TerraArcanaTypes.generated.h"
 
@@ -85,6 +86,19 @@ struct FAbilityDefinition
 	// Dashes to use for this ability.
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Ability")
 	TArray<FDashDefinition> Dashes;
+	
+	FAbilityDefinition()
+	{
+		// Get the singleton instance of your settings class
+		const UTerraDeveloperSettings* Settings = GetDefault<UTerraDeveloperSettings>();
+
+		// Check if the setting is valid and not null
+		if (Settings && !Settings->NoMoveEffect.IsNull())
+		{
+			// Add the designer-defined default effect to this array
+			SelfEffectClasses.Add(Settings->NoMoveEffect);
+		}
+	}
 };
 
 
