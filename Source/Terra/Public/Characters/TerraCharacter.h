@@ -7,6 +7,8 @@
 #include "GameFramework/Character.h"
 #include "TerraCharacter.generated.h"
 
+struct FOnAttributeChangeData; // Forward declaration
+
 class UTerraAttributeSet;
 class UTerraAbilitySystemComponent;
 class UTerraAbility;
@@ -60,4 +62,19 @@ protected:
 	UPROPERTY()
 	TObjectPtr<UTerraAttributeSet> AttributeSet;
 
+protected:
+
+	virtual void InitAbilitySystemComponent();
+
+	
+
+	void OnMoveSpeedChanged(const FOnAttributeChangeData& Data);
+
+
+
+	float BaseMoveSpeed;
+
+	float BaseRotationRate;
+
 };
+

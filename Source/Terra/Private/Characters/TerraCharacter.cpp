@@ -87,11 +87,44 @@ void ATerraCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 void ATerraCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
+
+	InitAbilitySystemComponent();
 }
 
 void ATerraCharacter::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
+
+	InitAbilitySystemComponent();
+}
+
+void ATerraCharacter::InitAbilitySystemComponent()
+{
+	if (!AbilitySystemComponent)
+	{
+		return;
+	}
+	
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(UTerraAttributeSet::GetMoveSpeedAttribute()).AddUObject(this, &ATerraCharacter::OnMoveSpeedChanged);
+
+	if (UCharacterMovementComponent* MovementComponent = GetCharacterMovement())
+	{
+		BaseMoveSpeed = MovementComponent->MaxWalkSpeed;
+		BaseRotationRate = MovementComponent->RotationRate.Yaw;
+	}
+}
+
+void ATerraCharacter::OnMoveSpeedChanged(const FOnAttributeChangeData& Data)
+{
+	if (UCharacterMovementComponent* MovementComponent = GetCharacterMovement())
+	{
+		const float Multiplier = Data.NewValue / 100.0f;
+		MovementComponent->MaxWalkSpeed = BaseMoveSpeed * Multiplier;
+
+		FRotator NewRotationRate = MovementComponent->RotationRate;
+		NewRotationRate.Yaw = BaseRotationRate * Multiplier;
+		MovementComponent->RotationRate = NewRotationRate;
+	}
 }
 
 UAbilitySystemComponent* ATerraCharacter::GetAbilitySystemComponent() const

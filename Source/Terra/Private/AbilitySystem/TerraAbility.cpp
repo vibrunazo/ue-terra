@@ -7,6 +7,7 @@
 void UTerraAbility::SetAbilityDefinition(const FAbilityDefinition& InAbilityDefinition)
 {
 	AbilityDefinition = InAbilityDefinition;
+	// TODO: This is where we should start async loading the Effects to apply on Activate Ability
 }
 
 void UTerraAbility::ApplySelfEffects()
