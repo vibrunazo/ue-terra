@@ -4,6 +4,11 @@
 #include "AbilitySystem/TerraAbility.h"
 #include "AbilitySystemComponent.h"
 
+void UTerraAbility::SetAbilityDefinition(const FAbilityDefinition& InAbilityDefinition)
+{
+	AbilityDefinition = InAbilityDefinition;
+}
+
 void UTerraAbility::ApplySelfEffects()
 {
 	if (const FGameplayAbilityActorInfo* ActorInfo = GetCurrentActorInfo())
@@ -48,5 +53,19 @@ void UTerraAbility::RemoveSelfEffects()
 			ActiveSelfEffects.Empty();
 		}
 	}
+}
+
+void UTerraAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
+	const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
+{
+	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
+	ApplySelfEffects();
+}
+
+void UTerraAbility::EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
+	const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled)
+{
+	RemoveSelfEffects();
+	Super::EndAbility(Handle, ActorInfo, ActivationInfo, bReplicateEndAbility, bWasCancelled);
 }
 
