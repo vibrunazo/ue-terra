@@ -19,5 +19,15 @@ public:
 	// Ability Definition
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Configuration")
 	FAbilityDefinition AbilityDefinition;
+
+	UFUNCTION(BlueprintCallable, Category = "Effects")
+	void ApplySelfEffects();
+
+	UFUNCTION(BlueprintCallable, Category = "Effects")
+	void RemoveSelfEffects();
+
+private:
+	UPROPERTY()
+	TArray<FActiveGameplayEffectHandle> ActiveSelfEffects;
 	
 };
