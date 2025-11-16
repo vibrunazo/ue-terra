@@ -66,8 +66,6 @@ protected:
 
 	virtual void InitAbilitySystemComponent();
 
-	
-
 	void OnMoveSpeedChanged(const FOnAttributeChangeData& Data);
 
 

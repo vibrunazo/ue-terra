@@ -63,10 +63,10 @@ void ATerraCharacter::LookAtTargetLocation()
 	if (bShouldLookAtTarget)
 	{
 		// if current movement speed is zero, return
-		if (GetCharacterMovement()->Velocity.Size() <= 0.1f)
-		{
-			return;
-		}
+		// if (GetCharacterMovement()->Velocity.Size() <= 0.1f)
+		// {
+		// 	return;
+		// }
 		
 		if (AController* PlayerController = GetController())
 		{
