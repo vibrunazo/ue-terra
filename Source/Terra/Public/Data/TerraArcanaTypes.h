@@ -136,3 +136,37 @@ struct FCharDefinition
 	TArray<FAbilityInstance> Abilities;
 	
 };
+
+/**
+ * Represents a sequence combo of abilities for an AI character.
+ */
+USTRUCT(BlueprintType)
+struct FAIComboSequence
+{
+	GENERATED_BODY()
+	
+	// Gameplay Tag that triggers the combo
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "AI")
+	FGameplayTag TriggerTag;
+	
+	// List of Ability indices that make up the combo
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "AI")
+	TArray<int32> Combos;
+	
+};
+
+/**
+ * An enemy that has a CharDefinition and AI data
+ */
+USTRUCT(Blueprintable)
+struct FEnemyDefinition
+{
+	GENERATED_BODY()
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enemy")
+	FCharDefinition CharDefinition;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enemy")
+	TArray<FAIComboSequence> ComboSequences;
+	
+};
