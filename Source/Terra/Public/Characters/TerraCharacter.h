@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemInterface.h"
+#include "Data/TerraArcanaTypes.h"
 #include "GameFramework/Character.h"
 #include "TerraCharacter.generated.h"
 
@@ -13,7 +14,7 @@ class UTerraAttributeSet;
 class UTerraAbilitySystemComponent;
 class UTerraAbility;
 
-UCLASS()
+UCLASS(PrioritizeCategories=("Abilities"))
 class TERRA_API ATerraCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
@@ -44,6 +45,9 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Rotation")
 	bool bShouldLookAtTarget = true;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Abilities")
+	FCharDefinition CharDefinition;
 
 protected:
 	// Called when the game starts or when spawned
@@ -67,8 +71,6 @@ protected:
 	virtual void InitAbilitySystemComponent();
 
 	void OnMoveSpeedChanged(const FOnAttributeChangeData& Data);
-
-
 
 	float BaseMoveSpeed;
 

@@ -111,7 +111,7 @@ struct FAbilityInstance
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Ability")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Ability", meta=(AllowedTypes="AbilityTemplate"))
 	FPrimaryAssetId AbilityTemplateID;
 
 	// The level of the ability instance.
@@ -120,3 +120,19 @@ struct FAbilityInstance
 
 };
 
+/**
+ * Represents a character's configured instance of an ability.
+ * This gets saved to JSON.
+ */
+USTRUCT(BlueprintType)
+struct FCharDefinition
+{
+	GENERATED_BODY()
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character")
+	FText Name;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character")
+	TArray<FAbilityInstance> Abilities;
+	
+};
