@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
+#include "Data/TerraArcanaTypes.h"
 #include "TerraAIController.generated.h"
 
 class UStateTreeAIComponent;
@@ -21,10 +22,11 @@ public:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AI")
 	TObjectPtr<UStateTreeAIComponent> StateTreeAIComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "AI")
+	FAIDefinition AIDefinition;
 	
 protected:
 	virtual void OnPossess(APawn* InPawn) override;
 
-	
-	
 };

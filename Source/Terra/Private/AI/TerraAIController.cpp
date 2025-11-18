@@ -3,7 +3,6 @@
 
 #include "AI/TerraAIController.h"
 #include "Components/StateTreeAIComponent.h"
-#include "Navigation/PathFollowingComponent.h"
 
 ATerraAIController::ATerraAIController()
 {
