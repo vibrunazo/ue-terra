@@ -3,10 +3,12 @@
 
 #include "AI/TerraAIController.h"
 #include "Components/StateTreeAIComponent.h"
+#include "Navigation/PathFollowingComponent.h"
 
 ATerraAIController::ATerraAIController()
 {
 	StateTreeAIComponent = CreateDefaultSubobject<UStateTreeAIComponent>(TEXT("StateTreeAIComponent"));
+
 }
 
 void ATerraAIController::OnPossess(APawn* InPawn)
