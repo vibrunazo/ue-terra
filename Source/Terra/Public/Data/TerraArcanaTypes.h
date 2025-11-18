@@ -156,6 +156,19 @@ struct FAIComboSequence
 };
 
 /**
+ * Defines what the AI of an Enemy will do. Loaded into the AIController.
+ */
+USTRUCT(Blueprintable)
+struct FAIDefinition
+{
+	GENERATED_BODY()
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enemy")
+	TArray<FAIComboSequence> ComboSequences;
+	
+};
+
+/**
  * An enemy that has a CharDefinition and AI data
  */
 USTRUCT(Blueprintable)
@@ -163,10 +176,47 @@ struct FEnemyDefinition
 {
 	GENERATED_BODY()
 	
+	// Character definition: Stored in the TerraCharacter
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enemy")
 	FCharDefinition CharDefinition;
 	
+	// AI Definition: Stored in the TerraAIController
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enemy")
-	TArray<FAIComboSequence> ComboSequences;
+	FAIDefinition AIDefinition;
+	
+};
+
+USTRUCT(BlueprintType)
+struct FLairDefinition
+{
+	GENERATED_BODY()
+	
+	// ID
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Lair")
+	int32 ID;
+	
+	// Name of the Lair
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Lair")
+	FText Name;
+	
+	// Description of the Lair
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Lair")
+	FText Description;
+	
+	// Uploader of the Lair
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Lair")
+	FText Uploader;
+	
+	// Date Created
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Lair")
+	FDateTime DateCreated;
+	
+	// Date Updated
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Lair")
+	FDateTime DateUpdated;
+	
+	// Enemies
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Lair")
+	TArray<FEnemyDefinition> Enemies;
 	
 };
