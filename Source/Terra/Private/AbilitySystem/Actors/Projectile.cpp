@@ -23,6 +23,14 @@ AProjectile::AProjectile()
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
+
+	for (const auto& EffectPtr : ProjectileDefinition.EffectClasses)
+	{
+		if (UClass* LoadedEffect = EffectPtr.LoadSynchronous())
+		{
+			EffectsToApply.Add(LoadedEffect);
+		}
+	}
 	
 	Sphere->OnComponentBeginOverlap.AddDynamic(this, &AProjectile::OnSphereOverlap);
 }

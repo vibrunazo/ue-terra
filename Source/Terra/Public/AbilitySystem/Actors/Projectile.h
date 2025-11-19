@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Data/TerraArcanaTypes.h"
 #include "Projectile.generated.h"
 
 UCLASS()
@@ -22,6 +23,9 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (ExposeOnSpawn = true), Category = "Projectile")
+	FProjectileDefinition ProjectileDefinition;
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<class USphereComponent> Sphere;
