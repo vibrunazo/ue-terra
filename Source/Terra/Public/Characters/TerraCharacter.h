@@ -76,5 +76,8 @@ protected:
 
 	float BaseRotationRate;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Combat")
+	TObjectPtr<UArrowComponent> ProjectileSpawn;
+
 };
 

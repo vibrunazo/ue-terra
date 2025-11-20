@@ -9,6 +9,7 @@
 #include "AbilitySystem/TerraAbility.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Components/ArrowComponent.h"
 
 // Sets default values
 ATerraCharacter::ATerraCharacter()
@@ -30,6 +31,9 @@ ATerraCharacter::ATerraCharacter()
 
 	AttributeSet = CreateDefaultSubobject<UTerraAttributeSet>(TEXT("AttributeSet"));
 
+	ProjectileSpawn = CreateDefaultSubobject<UArrowComponent>(TEXT("ProjectileSpawn"));
+	ProjectileSpawn->SetupAttachment(GetRootComponent());
+	ProjectileSpawn->SetRelativeLocation(FVector(100.f, 0.f, 0.f));
 }
 
 // Called when the game starts or when spawned
